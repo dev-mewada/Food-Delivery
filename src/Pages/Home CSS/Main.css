@@ -1,0 +1,110 @@
+.food-section {
+  width: 100%;
+  padding: 30px 40px;
+  box-sizing: border-box;
+}
+
+.food-section h2 {
+  margin-bottom: 20px;
+}
+
+.food-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.food-card {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: white;
+}
+
+.food-card h3 {
+  margin: 10px 0;
+}
+
+.food-card p {
+  margin: 6px 0;
+}
+
+.add-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.food-image {
+  width: 100%;
+  height: 160px;
+  background: #f5f5f5;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 70px;
+}
+
+.food-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 15px 0;
+}
+
+.add-button {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #ff6b35;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.add-button:active {
+  transform: scale(0.95);
+}
+.category-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin: 30px 0 20px;
+  color: #222;
+  position: relative;
+}
+
+.category-title::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  margin: 8px auto 0;
+  background: #ff4d00;
+  border-radius: 5px;
+}
+#all-food,
+#indian-food,
+#chinese-food,
+#veg-food,
+#non-veg-food {
+  scroll-margin-top: 90px;
+}
