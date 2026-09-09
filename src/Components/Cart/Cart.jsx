@@ -1,21 +1,26 @@
-import { useLocation, useNavigate } from "react-router-dom";
+
 import "../../Pages/Home CSS/Cart.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { incrementFood ,decrementFood,removeFood,ClearFood } from "../../Redux/CartSlice";
 
 function Cart() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const cart = location.state?.cart || [];
+  
+const dispatch = useDispatch();
+const cart = useSelector((state) => state.cart.cart);
 
   return (
     <main className="cart-page">
-
-      <button className="back-btn" onClick={() => navigate("/")}>
-        ← Back to Home
-      </button>
+     <Link to="/">
+  <button className="back-btn">
+    ← Back to Home
+  </button>
+</Link>
+      
 
       <h1>My Cart</h1>
-
+      <button onClick={() => (dispatch(ClearFood()))}>Clear</button>
       <div className="cart-header">
         <span>Image</span>
         <span>Food</span>
@@ -44,17 +49,17 @@ function Cart() {
             </div>
 
             <div>
-              ₹199
+              <p>₹199</p>
             </div>
 
             <div className="quantity">
-              <button>-</button>
+              <button onClick={ () => dispatch(incrementFood(food.id))}>+</button>
               <span>{food.quantity}</span>
-              <button>+</button>
+              <button onClick={ () => dispatch(decrementFood(food.id))}>-</button>
             </div>
 
             <div>
-              <button className="delete-btn">
+              <button className="delete-btn" onClick={()=> dispatch(removeFood(food.id))}>
                 <p>Delete</p>
               </button>
             </div>
@@ -70,10 +75,10 @@ function Cart() {
 
       <div className="grand-total">
         Grand Total: ₹
-        {/* {cart.reduce(
+        {cart.reduce(
           (total, food) => total + 199 * food.quantity,
           0
-        )} */}
+        )}
       </div>
 
     </main>

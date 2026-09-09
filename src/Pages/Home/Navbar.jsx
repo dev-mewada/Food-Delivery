@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
 
 import SearchIcon from "@mui/icons-material/Search";
@@ -7,10 +7,19 @@ import PersonIcon from "@mui/icons-material/Person";
 
 import logo from "../../logo.jpg";
 import "../Home CSS/Navbar.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../../Redux/SearchSlice";
 
-function Navbar({cart}) {
-  const [search, setSearch] = useState("");
+function Navbar() {
+
+  const dispatch = useDispatch();
+const searchText = useSelector((state) => state.search.searchText);
+console.log("Search:", searchText);
+  const cart = useSelector((state) => state.cart.cart);
+
   console.log(cart);
+
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth"
@@ -29,12 +38,12 @@ function Navbar({cart}) {
         <div className="search-box">
           <SearchIcon className="search-icon" />
 
-          <input
-            type="text"
-            placeholder="Search food..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+<input
+  type="text"
+  placeholder="Search food..."
+  value={searchText}
+  onChange={(e) => dispatch(setSearch(e.target.value))}
+/>
         </div>
 
         <div className="categories">
@@ -70,9 +79,9 @@ function Navbar({cart}) {
           state={{cart}}
              className="nav-icon cart-icon" 
            >
-             <ShoppingCartIcon /><p className="cart-count">
-  {cart.reduce((total, item) => total + item.quantity, 0)}
-</p>
+             <ShoppingCartIcon />
+             <p  className="cart-count">  
+              {cart.reduce((total, food) => total + food.quantity, 0)}  </p>
 </Link>
 
         <div className="nav-icon">

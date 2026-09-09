@@ -1,6 +1,9 @@
 import AddIcon from "@mui/icons-material/Add";
+import { addFood } from "../Redux/CartSlice";
+import { useDispatch } from "react-redux";
 
 function Foodcart({ onAdd , card }) {
+     const dispatch = useDispatch()
   return (
     <div className="food-card">
 
@@ -18,7 +21,7 @@ function Foodcart({ onAdd , card }) {
       </div>
 
       <button className="add-button"
-              onClick={() => onAdd(card)
+              onClick={() => dispatch(addFood(card))
             
               }
             
