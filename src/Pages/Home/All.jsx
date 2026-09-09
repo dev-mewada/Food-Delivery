@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
+import { useSelector } from "react-redux";
 
 function All({ onAdd }) {
   const [allFoods, setAllFoods] = useState([]);
+  const searchText = useSelector(
+  (state) => state.search.searchText
+);
 
   useEffect(() => {
     const getAllFoods = async () => {
@@ -21,17 +25,26 @@ function All({ onAdd }) {
         ...indianData.data,
         ...chineseData.data
       ]);
+      
     };
 
     getAllFoods();
   }, []);
+   const filteredFoods = allFoods.filter((food) =>
+  food.dish.toLowerCase().includes(searchText.toLowerCase())
+);
 
+     
+     
+     
   return (
     <section className="food-section">
       <h2>All Food</h2>
 
       <div className="food-container">
-        {allFoods.map((food, index) => {
+        
+        {
+        filteredFoods.map((food, index) => {
           const card = {
             id: index,
             name: food.dish,
