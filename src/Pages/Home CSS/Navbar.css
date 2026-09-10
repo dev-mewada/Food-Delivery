@@ -182,3 +182,29 @@
 
   box-sizing: border-box;
 }
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .logo img {
+    width: 45px;
+  }
+
+  .navbar-center {
+    flex: 1;
+    margin: 0 10px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .categories {
+    display: none;
+  }
+
+  .navbar-icons {
+    gap: 10px;
+  }
+}
