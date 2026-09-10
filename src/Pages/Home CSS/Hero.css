@@ -208,3 +208,30 @@
 .hero {
   margin-top: 80px;
 }
+@media (max-width: 768px) {
+  .hero {
+    height: 300px;
+  }
+
+  .hero img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .hero-content {
+    padding: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .hero button {
+    padding: 8px 12px;
+  }
+}

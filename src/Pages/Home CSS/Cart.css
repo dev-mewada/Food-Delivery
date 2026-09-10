@@ -82,3 +82,58 @@
   font-size: 22px;
   font-weight: 600;
 }
+.clear-btn {
+  display: block;
+  margin-left: auto;
+  margin-bottom: 20px;
+
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #e74c3c;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: #c0392b;
+}
+.cart-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.cart-title h1 {
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .cart-page {
+    padding: 20px 12px;
+  }
+
+  .cart-header {
+    display: none;
+  }
+
+  .cart-row {
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+  }
+
+  .cart-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .cart-title {
+    margin-bottom: 20px;
+  }
+
+  .grand-total {
+    font-size: 18px;
+  }
+}

@@ -19,8 +19,16 @@ const cart = useSelector((state) => state.cart.cart);
 </Link>
       
 
-      <h1>My Cart</h1>
-      <button onClick={() => (dispatch(ClearFood()))}>Clear</button>
+     <div className="cart-title">
+  <h1>My Cart</h1>
+
+  <button
+    className="clear-btn"
+    onClick={() => dispatch(ClearFood())}
+  >
+    Clear
+  </button>
+</div>
       <div className="cart-header">
         <span>Image</span>
         <span>Food</span>

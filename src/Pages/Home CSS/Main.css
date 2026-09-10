@@ -108,3 +108,54 @@
 #non-veg-food {
   scroll-margin-top: 90px;
 }
+@media (max-width: 768px) {
+  .food-container {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .food-card {
+    min-width: 220px;
+    max-width: 220px;
+    flex-shrink: 0;
+  }
+
+  .food-image {
+    height: 120px;
+  }
+
+  .food-card h3 {
+    font-size: 15px;
+  }
+
+  .food-card p {
+    font-size: 13px;
+  }
+
+  .food-bottom {
+    font-size: 13px;
+  }
+
+  .add-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .food-container {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .food-card {
+    min-width: 280px;
+    flex-shrink: 0;
+  }
+}
