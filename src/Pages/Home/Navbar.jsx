@@ -1,5 +1,5 @@
-
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -12,6 +12,17 @@ import { useDispatch } from "react-redux";
 import { setSearch } from "../../Redux/SearchSlice";
 
 function Navbar() {
+//For Login
+ // const isLoggedIn = localStorage.getItem("isLoggedIn");
+const user = JSON.parse(localStorage.getItem("user"));
+
+//for dropdown for login icon
+const [showUserMenu, setShowUserMenu] = useState(false);
+
+// for logout page re render
+const [isLoggedIn, setIsLoggedIn] = useState(
+  localStorage.getItem("isLoggedIn") === "true"
+);
 
   const dispatch = useDispatch();
 const searchText = useSelector((state) => state.search.searchText);
@@ -85,10 +96,39 @@ console.log("Search:", searchText);
 </Link>
 
         <div className="nav-icon">
-          <Link to="/login">
-            <PersonIcon />
-          </Link>
-        </div>
+  {isLoggedIn ? (
+    <div className="user-name"
+      onClick={() => setShowUserMenu(!showUserMenu)}
+      >
+  {user?.name
+    ?.split(" ")
+    .slice(0, 2)
+    .map(word => word[0].toUpperCase())
+    .join("")}
+</div>
+  ) : (
+    <Link to="/login">
+      <PersonIcon />
+    </Link>
+  )}
+  {showUserMenu && (
+  <div className="user-dropdown">
+    <p>{user?.name}</p>
+    <p>{user?.email}</p>
+   
+    <button
+     onClick={() => {
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("user");
+
+  window.location.reload();
+}}
+    >
+      Logout
+    </button>
+  </div>
+)}
+</div>
 
       </div>
 

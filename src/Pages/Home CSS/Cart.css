@@ -119,21 +119,123 @@
     display: none;
   }
 
-  .cart-row {
-    grid-template-columns: 70px 1fr;
-    gap: 12px;
-  }
-
-  .cart-image {
-    width: 60px;
-    height: 60px;
-  }
-
   .cart-title {
     margin-bottom: 20px;
   }
 
+  .cart-title h1 {
+    font-size: 24px;
+  }
+
+  .clear-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+    margin-bottom: 0;
+  }
+
+  .cart-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .cart-image {
+    width: 100%;
+    height: 120px;
+    font-size: 50px;
+  }
+
+  .cart-row h3 {
+    font-size: 17px;
+  }
+
+  .cart-row p {
+    font-size: 13px;
+  }
+
+  .quantity {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
   .grand-total {
+    margin-top: 20px;
     font-size: 18px;
   }
+}
+.order-now {
+  margin-left: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #ff6b35;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.order-now:hover {
+  background: #e85a2a;
+  transform: translateY(-2px);
+}
+
+.order-now:active {
+  transform: scale(0.95);
+}
+.cart-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 110px 40px 40px;
+  box-sizing: border-box;
+  background: #f7f7f7;
+}
+.order-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-box {
+  width: 400px;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-box h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.modal-box input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.modal-box button {
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  background: #ff6b35;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
 }

@@ -2,15 +2,25 @@
 import "../../Pages/Home CSS/Cart.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { incrementFood ,decrementFood,removeFood,ClearFood } from "../../Redux/CartSlice";
+import Navbar from "../../Pages/Home/Navbar";
+import { useState } from "react";
 
 function Cart() {
   
+ const [showModal, setShowModal] = useState(false); 
+
+ const navigate = useNavigate();
+
+ 
 const dispatch = useDispatch();
 const cart = useSelector((state) => state.cart.cart);
 
   return (
+   
+    <>
+    <Navbar/>
     <main className="cart-page">
      <Link to="/">
   <button className="back-btn">
@@ -81,15 +91,53 @@ const cart = useSelector((state) => state.cart.cart);
 
       </div>
 
-      <div className="grand-total">
+      {cart.length>0&&<div className="grand-total">
         Grand Total: ₹
         {cart.reduce(
           (total, food) => total + 199 * food.quantity,
           0
         )}
-      </div>
 
+        <button
+  onClick={() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn === "true") {
+      setShowModal(true);
+    } else {
+      navigate("/login");
+    }
+  }}
+  className="order-now"
+>
+  Order Now
+</button>
+      </div>}
+  {showModal && (
+  <div className="order-modal">
+    <div className="modal-box">
+      <h2>Place Order</h2>
+
+      <input
+        type="text"
+        placeholder="Enter Address"
+      />
+
+      <input
+        type="text"
+        placeholder="Enter Mobile Number"
+      />
+
+      <button>Submit Order</button>
+
+      <button onClick={() => setShowModal(false)}>
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
     </main>
+    </>
   );
 }
 

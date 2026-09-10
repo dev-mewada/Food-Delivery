@@ -1,23 +1,51 @@
 import { useState } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Login({ onClose, onRegister }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
 
-  const handleLogin = (e) => {
+  const navigate = useNavigate();
+
+
+const handleLogin = (e) => {
   e.preventDefault();
 
-  if (!username || !password) {
-    alert("Please enter email and password");
-    return;
-  }
+  if (
+  username === "admin@gmail.com" &&
+  password === "123456"
+) {
+  localStorage.setItem("isLoggedIn", "true");
+
+  const user = {
+    name: "Devendra Mewada",
+    email: "admin@gmail.com"
+  };
+
+  localStorage.setItem("user", JSON.stringify(user));
 
   alert("Login successful");
-
-  onClose();
+  navigate("/");
+}
 };
+
+//   const handleLogin = (e) => {
+//   e.preventDefault();
+
+//   if (!username || !password) {
+//     alert("Please enter email and password");
+//     return;
+//   }
+   
+//   else {
+//        <Link to ="/">alert("Login successful");</Link>
+     
+//   }
+
+
+  
+// };
 
 
   return (
@@ -25,18 +53,20 @@ function Login({ onClose, onRegister }) {
 
       <div className="login-modal">
 
-        <button
-          className="close-button"
-          onClick={onClose}
-        >
-          ×
-        </button>
+
+         <button
+  className="close-button"
+  onClick={() => navigate(-1)}
+>
+  ×
+</button>
+        
 
 
         <h2>Login</h2>
 
 
-        <form onSubmit={handleLogin}>
+        <form >
 
           <div className="form-group">
 
@@ -69,10 +99,12 @@ function Login({ onClose, onRegister }) {
 
           </div>
 
-
+   <p>login id : admin@gmail.com</p>
+   <p>password: 123456</p>
           <button
             type="submit"
             className="login-button"
+            onClick={handleLogin}
           >
             Login
           </button>
@@ -84,13 +116,7 @@ function Login({ onClose, onRegister }) {
 
           New user?
          <Link to="/register">Register</Link>
-          {/* <button
-            className="register-link"
-            onClick={onRegister}
-          >
-            Register
-          </button> */}
-
+         
         </p>
 
       </div>

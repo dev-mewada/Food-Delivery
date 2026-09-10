@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 import {
   faChevronLeft,
   faChevronRight
@@ -60,6 +61,7 @@ const heroData = [
 ];
 
 function Hero() {
+  const navigate = useNavigate()
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -116,9 +118,26 @@ function Hero() {
           {currentHero.description}
         </p>
 
-        <button className="hero-button">
-          {currentHero.buttonText}
-        </button>
+        <button
+  className="hero-button"
+  onClick={() => {
+    if (currentHero.buttonText === "Order Now") {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+      if (isLoggedIn === "true") {
+        navigate("/cart");
+      } else {
+        navigate("/login");
+      }
+    } else {
+      document.getElementById("all-food")?.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  }}
+>
+  {currentHero.buttonText}
+</button>
 
       </div>
 
