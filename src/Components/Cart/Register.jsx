@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Login.css";
-
+import { Link } from "react-router-dom";
 
 function Register({ onClose, onLogin }) {
 
@@ -14,67 +14,68 @@ function Register({ onClose, onLogin }) {
   const [otpVerified, setOtpVerified] = useState(false);
 
 
-  const sendOtp = () => {
+//   const sendOtp = () => {
 
-    if (!phone) {
-      alert("Please enter phone number");
-      return;
-    }
+//     if (!phone) {
+//       alert("Please enter phone number");
+//       return;
+//     }
 
-    setOtpSent(true);
+//     setOtpSent(true);
 
-    alert("Demo OTP sent: 1234");
-  };
-
-
-  const verifyOtp = () => {
-
-    if (otp === "1234") {
-
-      setOtpVerified(true);
-
-      alert("OTP verified");
-
-    } else {
-
-      alert("Invalid OTP");
-
-    }
-
-  };
+//     alert("Demo OTP sent: 1234");
+//   };
 
 
-  const handleRegister = (e) => {
-  e.preventDefault();
+//   const verifyOtp = () => {
 
-  if (!otpVerified) {
-    alert("Please verify OTP first");
-    return;
-  }
+//     if (otp === "1234") {
 
-  alert("Registration successful");
+//       setOtpVerified(true);
 
-  onLogin();
-};
+//       alert("OTP verified");
+
+//     } else {
+
+//       alert("Invalid OTP");
+
+//     }
+
+//   };
+
+
+//   const handleRegister = (e) => {
+//   e.preventDefault();
+
+//   if (!otpVerified) {
+//     alert("Please verify OTP first");
+//     return;
+//   }
+
+//   alert("Registration successful");
+
+//   onLogin();
+// };
 
 
   return (
     <div className="login-overlay">
 
       <div className="login-modal">
-
-        <button
+       <Link to ="/"
+       ><button
           className="close-button"
           onClick={onClose}
         >
           ×
-        </button>
+        </button></Link>
+        
 
 
         <h2>Register</h2>
 
 
-        <form onSubmit={handleRegister}>
+        <form >
 
           <div className="form-group">
 
@@ -120,7 +121,7 @@ function Register({ onClose, onLogin }) {
               <button
                 type="button"
                 className="otp-button"
-                onClick={sendOtp}
+                // onClick={sendOtp}
               >
                 Send OTP
               </button>
@@ -148,7 +149,7 @@ function Register({ onClose, onLogin }) {
                 <button
                   type="button"
                   className="otp-button"
-                  onClick={verifyOtp}
+                  // onClick={verifyOtp}
                 >
                   Verify
                 </button>
@@ -181,7 +182,7 @@ function Register({ onClose, onLogin }) {
           </div>
 
 
-          {otpVerified && (
+          {/* {otpVerified && (
 
             <button
               type="submit"
@@ -190,9 +191,14 @@ function Register({ onClose, onLogin }) {
               Register
             </button>
 
-          )}
+          )} */}
 
-
+ <button
+              type="submit"
+              className="login-button"
+            >
+              Register
+            </button>
         </form>
 
 
@@ -200,12 +206,19 @@ function Register({ onClose, onLogin }) {
 
           Already have an account?
 
-          <button
+
+           <Link to="/Login"><button
+            className="register-link"
+           
+          >
+            Login
+          </button></Link>
+          {/* <button
             className="register-link"
             onClick={onLogin}
           >
             Login
-          </button>
+          </button> */}
 
         </p>
 
