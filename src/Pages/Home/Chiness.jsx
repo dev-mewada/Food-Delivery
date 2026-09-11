@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
 
-function Chiness({ onAdd }) {
+function Chiness() {
   const [chinessFoods, setChinessFoods] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function Chiness({ onAdd }) {
           };
 
           return <Foodcart key={card.id} card={card}
-          onAdd={onAdd} />;
+           />;
         })}
       </div>
     </section>

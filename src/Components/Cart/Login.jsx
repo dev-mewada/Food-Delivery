@@ -56,7 +56,7 @@ const handleLogin = (e) => {
 
          <button
   className="close-button"
-  onClick={() => navigate(-1)}
+  onClick={() => navigate("/")}
 >
   ×
 </button>
@@ -115,7 +115,7 @@ const handleLogin = (e) => {
         <p className="register-text">
 
           New user?
-         <Link to="/register">Register</Link>
+         <Link to="/register"><button className="register-link">Register</button></Link>
          
         </p>
 

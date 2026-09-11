@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
 
-function Nonveg({onAdd}) {
+function Nonveg() {
   const [nonvegFoods, setNonvegFoods] = useState([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function Nonveg({onAdd}) {
             cuisine: food.cuisine
           };
 
-          return <Foodcart key={card.id} card={card} onAdd={onAdd}/>;
+          return <Foodcart key={card.id} card={card} />;
         })}
       </div>
     </section>

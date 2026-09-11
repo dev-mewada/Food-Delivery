@@ -10,6 +10,7 @@ import { useState } from "react";
 function Cart() {
   
  const [showModal, setShowModal] = useState(false); 
+ const [showModelSecond , setShowModelSecond] = useState(false);
 
  const navigate = useNavigate();
 
@@ -105,7 +106,7 @@ const cart = useSelector((state) => state.cart.cart);
     if (isLoggedIn === "true") {
       setShowModal(true);
     } else {
-      navigate("/login");
+      setShowModelSecond(true);
     }
   }}
   className="order-now"
@@ -135,6 +136,24 @@ const cart = useSelector((state) => state.cart.cart);
       </button>
     </div>
   </div>
+)}
+
+{showModelSecond && (
+   <div className="for-confirm">
+       <div className="modal-box">
+        <p>IF YOU ARE NOT LOGIN SO PLESE FIRST KEEP LOGIN</p>
+         <button
+         onClick= { () => navigate ("/Login")}
+         >Login</button>
+         <button  onClick={ () => setShowModelSecond(false)}
+         >Cancle</button>
+
+       </div>
+
+
+
+   </div>
+
 )}
     </main>
     </>

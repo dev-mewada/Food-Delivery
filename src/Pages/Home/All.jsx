@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
 import { useSelector } from "react-redux";
 
-function All({ onAdd }) {
+function All() {
   const [allFoods, setAllFoods] = useState([]);
   const searchText = useSelector(
   (state) => state.search.searchText
@@ -52,7 +52,7 @@ function All({ onAdd }) {
           };
 
           return <Foodcart key={card.id} card={card}
-          onAdd={onAdd}  />;
+          />;
         })}
       </div>
     </section>
