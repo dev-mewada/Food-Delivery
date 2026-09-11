@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
 
-function Veg({onAdd}) {
+function Veg() {
   const [vegFoods, setVegFoods] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function Veg({onAdd}) {
           };
 
           return <Foodcart key={card.id} card={card}
-          onAdd={onAdd} />;
+           />;
         })}
       </div>
     </section>

@@ -89,14 +89,14 @@
   background: #e96d00;
 }
 
-.register-text {
+.login-text {
   text-align: center;
   margin-top: 20px;
 
   font-size: 14px;
 }
 
-.register-link {
+.login-link {
   margin-left: 5px;
 
   border: none;
@@ -109,6 +109,7 @@
 
   cursor: pointer;
 }
+.login
 .otp-row {
   display: flex;
   gap: 8px;
@@ -135,4 +136,24 @@
   font-weight: 600;
   margin-top: -8px;
   margin-bottom: 15px;
+}
+.register-text {
+  text-align: center;
+  margin-top: 20px;
+
+  font-size: 14px;
+}
+
+.register-link {
+  margin-left: 5px;
+
+  border: none;
+  background: none;
+
+  color: #ff7a00;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
 }

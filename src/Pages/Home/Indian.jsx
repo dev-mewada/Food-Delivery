@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
 
-function Indian( {onAdd} ) {
+function Indian()  {
   const [indianFoods, setIndianFoods] = useState([]);
  
   
@@ -35,7 +35,7 @@ function Indian( {onAdd} ) {
                <Foodcart
                key={card.id}
                card={card}
-               onAdd={onAdd}
+               
                 />)
         })}
       </div>

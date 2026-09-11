@@ -202,13 +202,13 @@ function Register({ onClose, onLogin }) {
         </form>
 
 
-        <p className="register-text">
+        <p className="login-text">
 
           Already have an account?
 
 
            <Link to="/Login"><button
-            className="register-link"
+            className = "login-link"
            
           >
             Login
