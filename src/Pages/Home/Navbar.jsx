@@ -72,7 +72,7 @@ function Navbar() {
           className="logo"
           onClick={() => {
             navigate("/");
-            window.location.reload();
+           
           }}
         >
           <img src={logo} alt="Foodie Logo" />
