@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
-
+import Loading from "../../Components/Loading";
 function Nonveg() {
   const [nonvegFoods, setNonvegFoods] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getNonvegFoods = async () => {
-      const response = await fetch(
-        "https://randomapi.dev/api/foods?vegetarian=false&count=10&seed=5"
+      try {const response = await fetch(
+        "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
       );
 
       const data = await response.json();
 
-      setNonvegFoods(data.data);
+      setNonvegFoods(data.recipes);}finally {
+      setLoading(false);
+    }
     };
 
     getNonvegFoods();
@@ -22,17 +24,18 @@ function Nonveg() {
     <section className="food-section">
       <h2>Non Veg Food</h2>
 
-      <div className="food-container">
+      {loading?(<Loading/>):(<div className="food-container">
         {nonvegFoods.map((food, index) => {
           const card = {
             id: index,
-            name: food.dish,
+            name: food.name,
+            image: food.image,
             cuisine: food.cuisine
           };
 
           return <Foodcart key={card.id} card={card} />;
         })}
-      </div>
+      </div>)}
     </section>
   );
 }

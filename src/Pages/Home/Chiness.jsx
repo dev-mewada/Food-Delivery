@@ -1,39 +1,46 @@
 import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
-
+import Loading from "../../Components/Loading";
 function Chiness() {
   const [chinessFoods, setChinessFoods] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const getChinessFoods = async () => {
+  const getChinessFoods = async () => {
+    try {
       const response = await fetch(
-        "https://randomapi.dev/api/foods?cuisine=chinese&count=10&seed=3"
+        "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
       );
 
       const data = await response.json();
 
-      setChinessFoods(data.data);
-    };
+      setChinessFoods(data.recipes);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    getChinessFoods();
-  }, []);
+  getChinessFoods();
+}, []);
+
+    
 
   return (
     <section className="food-section">
       <h2>Chinese Food</h2>
 
-      <div className="food-container">
+     {loading ? (<Loading/>): (<div className="food-container">
         {chinessFoods.map((food, index) => {
           const card = {
             id: index,
-            name: food.dish,
+            name: food.name,
+            image: food.image,
             cuisine: food.cuisine
           };
 
           return <Foodcart key={card.id} card={card}
            />;
         })}
-      </div>
+      </div>)}
     </section>
   );
 }
