@@ -1,33 +1,40 @@
 import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
+import Loading from "../../Components/Loading";
 
 function Indian()  {
   const [indianFoods, setIndianFoods] = useState([]);
+  
+const [loading, setLoading] = useState(true);
  
   
   useEffect(() => {
-    const getIndianFoods = async () => {
+  const getIndianFoods = async () => {
+    try {
       const response = await fetch(
-        "https://randomapi.dev/api/foods?cuisine=indian&count=10&seed=2"
+        "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
       );
 
       const data = await response.json();
+      setIndianFoods(data.recipes);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      setIndianFoods(data.data);
-    };
-
-    getIndianFoods();
-  }, []);
+  getIndianFoods();
+}, []);
 
   return (
     <section className="food-section">
       <h2>Indian Food</h2>
-
-      <div className="food-container">
+{loading ? (<Loading/>):
+      (<div className="food-container">
         {indianFoods.map((food, index) => {
           const card = {
             id: index,
-            name: food.dish,
+            name: food.name,
+            image: food.image,
             cuisine: food.cuisine
           };
 
@@ -38,7 +45,7 @@ function Indian()  {
                
                 />)
         })}
-      </div>
+      </div>)}
     </section>
   );
 }

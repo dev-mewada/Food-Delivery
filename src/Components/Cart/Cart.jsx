@@ -11,6 +11,7 @@ function Cart() {
   
  const [showModal, setShowModal] = useState(false); 
  const [showModelSecond , setShowModelSecond] = useState(false);
+ const [showPayModel,setPayModel]=useState(false)
 
  const navigate = useNavigate();
 
@@ -128,8 +129,14 @@ const cart = useSelector((state) => state.cart.cart);
         type="text"
         placeholder="Enter Mobile Number"
       />
-
-      <button>Submit Order</button>
+       <h3>
+  Order Total: ₹
+  {cart.reduce(
+    (total, food) => total + 199 * food.quantity,
+    0
+  )}
+</h3>
+      <button onClick={ () => {setShowModal(false);setPayModel(true);}}>Continue to Payment</button>
 
       <button onClick={() => setShowModal(false)}>
         Cancel
@@ -143,7 +150,7 @@ const cart = useSelector((state) => state.cart.cart);
        <div className="modal-box">
         <p>IF YOU ARE NOT LOGIN SO PLESE FIRST KEEP LOGIN</p>
          <button
-         onClick= { () => navigate ("/Login")}
+         onClick= { () => navigate ("/login")}
          >Login</button>
          <button  onClick={ () => setShowModelSecond(false)}
          >Cancle</button>
@@ -154,6 +161,50 @@ const cart = useSelector((state) => state.cart.cart);
 
    </div>
 
+)}
+
+{showPayModel && (
+  <div className="payment-list">
+
+    <div className="payment-box">
+
+      <h2>Payment</h2>
+
+      <h3>
+        Order Total: ₹
+        {cart.reduce(
+          (total, food) => total + 199 * food.quantity,
+          0
+        )}
+      </h3>
+
+      <p>Select Payment Method</p>
+
+      <label>
+        <input type="radio" name="payment" />
+        PhonePe / UPI
+      </label>
+
+      <label>
+        <input type="radio" name="payment" />
+        Card
+      </label>
+
+      <label>
+        <input type="radio" name="payment" />
+        Cash on Delivery
+      </label>
+
+      <button>
+        Pay Now
+      </button>
+
+     <button  onClick={ () => {setPayModel(false)}}
+         >Cancle</button>
+
+    </div>
+
+  </div>
 )}
     </main>
     </>
