@@ -2,44 +2,65 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch } from "react-redux";
 import { addFood } from "../Redux/CartSlice";
+import axios from "axios";
 
 function Foodcart({ card }) {
   const dispatch = useDispatch();
 
   const [showNotification, setShowNotification] = useState(false);
 
-  const handleAdd = () => {
-    // Add food to Redux cart
-    dispatch(addFood(card));
+  const handleAdd = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-    // Play sound
-    const audio = new Audio("/sound/add-cart.wav.wav");
-    audio.play();
+    if (!user) {
+      alert("Please login first");
+      return;
+    }
 
-    // Show notification
-    setShowNotification(true);
+    try {
+      await axios.post("http://localhost:5000/cart", {
+        user_id: user.id,
+        food_id: card.id,
+        quantity: 1,
+      });
 
-    // Hide notification after 2 seconds
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 2000);
+      dispatch(addFood(card));
+
+      setShowNotification(true);
+
+      const audio = new Audio("/sound/add-cart.wav.wav");
+      audio.play();
+
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+
+      alert(
+        error.response?.data?.message ||
+          "Food cart me add nahi hua"
+      );
+    }
   };
 
   return (
     <>
       <div className="food-card">
-
         <div className="food-image">
           <img src={card.image} alt={card.name} />
         </div>
 
         <h3>{card.name}</h3>
 
-        <p>{card.cuisine}</p>
+        <p>{card.restaurant}</p>
 
         <div className="food-bottom">
-          <span>₹199</span>
-          <span>⭐ {card.rating || 4.5}</span>
+          <span>₹{card.price}</span>
+
+          <span>
+            ⭐ {card.rating || 4.5}
+          </span>
         </div>
 
         <button
@@ -49,7 +70,6 @@ function Foodcart({ card }) {
           <AddIcon />
           Add
         </button>
-
       </div>
 
       {showNotification && (
