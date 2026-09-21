@@ -2,66 +2,91 @@ import { useEffect, useState } from "react";
 import Foodcart from "../../Components/Foodcart";
 import { useSelector } from "react-redux";
 import Loading from "../../Components/Loading";
+
 function All() {
-  const [allFoods, setAllFoods] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  const searchText = useSelector(
-  (state) => state.search.searchText
-);
+    const [allFoods, setAllFoods] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const getAllFoods = async () => {
-     try{ const indianResponse = await fetch(
-        "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
-      );
+    const searchText = useSelector(
+        (state) => state.search.searchText
+    );
 
-      const chineseResponse = await fetch(
-        "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
-      );
+    useEffect(() => {
 
-      const indianData = await indianResponse.json();
-      const chineseData = await chineseResponse.json();
+        const getAllFoods = async () => {
 
-    setAllFoods([
-        ...indianData.recipes,
-        ...chineseData.recipes
-      ]);}
-      finally {
-      setLoading(false);
-    }
-    };
+            try {
 
-    getAllFoods();
-  }, []);
-   const filteredFoods = allFoods.filter((food) =>
-  food.name.toLowerCase().includes(searchText.toLowerCase())
-);
+                const response = await fetch(
+                    "http://localhost:5000/food"
+                );
 
-     
-     
-     
-  return (
-    <section className="food-section">
-      <h2>All Food</h2>
-   {loading? (<Loading/>):(
-      <div className="food-container">
-        
-        {
-        filteredFoods.map((food, index) => {
-          const card = {
-            id: index,
-            name: food.name,
-            image: food.image,
-            cuisine: food.cuisine
-          };
+                const data = await response.json();
 
-          return <Foodcart key={card.id} card={card}
-          />;
-        })}
-      </div>)}
-    </section>
-  );
+                setAllFoods(data);
+
+            } catch (error) {
+
+                console.log(error);
+
+            } finally {
+
+                setLoading(false);
+
+            }
+        };
+
+        getAllFoods();
+
+    }, []);
+
+    const filteredFoods = allFoods.filter((food) =>
+        food.food_name
+            .toLowerCase()
+            .includes(searchText.toLowerCase())
+    );
+
+    return (
+        <section className="food-section">
+
+            <h2>All Food</h2>
+
+            {loading ? (
+                <Loading />
+            ) : (
+
+                <div className="food-container">
+
+                    {filteredFoods.map((food) => {
+
+                        const card = {
+                            id: food.id,
+                            name: food.food_name,
+                            restaurant: food.restaurant,
+                            image: food.foodimage,
+                            price: food.rate,
+                            rating: food.rating,
+                            category: food.category,
+                            description: food.description,
+                            today_special: food.today_special
+                        };
+
+                        return (
+                            <Foodcart
+                                key={card.id}
+                                card={card}
+                            />
+                        );
+
+                    })}
+
+                </div>
+
+            )}
+
+        </section>
+    );
 }
 
 export default All;

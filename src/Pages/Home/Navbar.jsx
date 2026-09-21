@@ -174,7 +174,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
-
+       
       {/* My Order Modal */}
       {openMyOrder && (
         <div className="order-list">

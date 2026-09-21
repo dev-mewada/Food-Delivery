@@ -7,8 +7,14 @@ import Nonveg from "./Nonveg";
 import "../Home CSS/Main.css";
 
 function Main({onAdd}) {
+ 
+
+    
   return (
     <main>
+      {/* <button onClick={getUsers}>
+    Get Users
+</button> */}
       <h2 className="category-title">Category</h2>
 
       <div id="all-food">

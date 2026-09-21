@@ -157,3 +157,46 @@
 
   cursor: pointer;
 }
+/* Forgot Password button */
+.forgot-password-button {
+  display: block;
+  margin: 15px auto 10px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #ff6b00;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.forgot-password-button:hover {
+  text-decoration: underline;
+}
+
+/* Back to Login button */
+.back-login-button {
+  display: block;
+  margin: 15px auto 0;
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.back-login-button:hover {
+  color: #ff6b00;
+  text-decoration: underline;
+}
+
+/* OTP success message */
+.otp-success {
+  text-align: center;
+  color: #28a745;
+  font-weight: 600;
+  margin: 15px 0;
+}
