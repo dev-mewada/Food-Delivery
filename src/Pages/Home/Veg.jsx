@@ -14,7 +14,7 @@ function Veg() {
             try {
 
                 const response = await fetch(
-                    "http://localhost:5000/food"
+                    "https://food-delivery-backend-32tm.onrender.com/food"
                 );
 
                 const data = await response.json();

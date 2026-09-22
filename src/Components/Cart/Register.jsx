@@ -39,7 +39,10 @@ function Register({ onClose, onLogin }) {
 
 
       const response = await axios.post(
-        "http://localhost:5000/users",
+
+        // 🔴 CHANGED: localhost backend → Render backend
+        "https://food-delivery-backend-32tm.onrender.com/users",
+
         userData
       );
 
@@ -73,7 +76,10 @@ function Register({ onClose, onLogin }) {
     try {
 
       const response = await axios.post(
-        "http://localhost:5000/users/verify-otp",
+
+        // 🔴 CHANGED: localhost backend → Render backend
+        "https://food-delivery-backend-32tm.onrender.com/users/verify-otp",
+
         {
           email: email,
           otp: otp
@@ -101,6 +107,7 @@ function Register({ onClose, onLogin }) {
 
 
   return (
+
     <div className="login-overlay">
 
       <div className="login-modal">
