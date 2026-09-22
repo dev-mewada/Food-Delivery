@@ -31,12 +31,11 @@ function Cart() {
 
   const cart = useSelector((state) => state.cart.cart);
 
-  // Get logged-in user
   const user = JSON.parse(localStorage.getItem("user"));
 
 
   // ==============================
-  // Get cart from database
+  // Get Cart
   // ==============================
 
   useEffect(() => {
@@ -50,7 +49,10 @@ function Cart() {
       try {
 
         const response = await axios.get(
-          `http://localhost:5000/cart?user_id=${user.id}`
+
+          // 🔴 CHANGED: localhost → Render backend
+          `https://food-delivery-backend-32tm.onrender.com/cart?user_id=${user.id}`
+
         );
 
         console.log("Cart from database:", response.data);
@@ -110,7 +112,10 @@ function Cart() {
     try {
 
       await axios.put(
-        `http://localhost:5000/cart/${food.id}`,
+
+        // 🔴 CHANGED: localhost → Render backend
+        `https://food-delivery-backend-32tm.onrender.com/cart/${food.id}`,
+
         {
           user_id: user.id,
           quantity: newQuantity
@@ -160,7 +165,10 @@ function Cart() {
     try {
 
       await axios.put(
-        `http://localhost:5000/cart/${food.id}`,
+
+        // Already Render URL tha — no change needed
+        `https://food-delivery-backend-32tm.onrender.com/cart/${food.id}`,
+
         {
           user_id: user.id,
           quantity: newQuantity
@@ -201,7 +209,10 @@ function Cart() {
     try {
 
       await axios.delete(
-        `http://localhost:5000/cart/${food.id}`,
+
+        // 🔴 CHANGED: localhost → Render backend
+        `https://food-delivery-backend-32tm.onrender.com/cart/${food.id}`,
+
         {
           data: {
             user_id: user.id
@@ -248,7 +259,10 @@ function Cart() {
     try {
 
       await axios.delete(
-        "http://localhost:5000/cart/clear",
+
+        // 🔴 CHANGED: localhost → Render backend
+        "https://food-delivery-backend-32tm.onrender.com/cart/clear",
+
         {
           data: {
             user_id: user.id

@@ -10,14 +10,19 @@ function Login({ onClose, onRegister }) {
   // Forgot Password states
   const [forgotPassword, setForgotPassword] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
-  //verify - otp
+
+  // Verify OTP
   const [otp, setOtp] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
-  //for forgot new passwords
+
+  // New password states
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordReset, setPasswordReset] = useState(false);
 
+  const navigate = useNavigate();
+
+  // Verify Reset OTP
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
 
@@ -28,11 +33,11 @@ function Login({ onClose, onRegister }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/users/verify-reset-otp",
+        "https://food-delivery-backend-32tm.onrender.com/users/verify-reset-otp",
         {
           email: forgotEmail,
           otp: otp,
-        },
+        }
       );
 
       alert(response.data.message);
@@ -41,9 +46,13 @@ function Login({ onClose, onRegister }) {
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "OTP verification failed");
+      alert(
+        error.response?.data?.message || "OTP verification failed"
+      );
     }
   };
+
+  // Reset Password
   const handleResetPassword = async (e) => {
     e.preventDefault();
 
@@ -64,11 +73,11 @@ function Login({ onClose, onRegister }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/users/reset-password",
+        "https://food-delivery-backend-32tm.onrender.com/users/reset-password",
         {
           email: forgotEmail,
           password: newPassword,
-        },
+        }
       );
 
       alert(response.data.message);
@@ -77,11 +86,13 @@ function Login({ onClose, onRegister }) {
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "Password reset failed");
+      alert(
+        error.response?.data?.message || "Password reset failed"
+      );
     }
   };
-  const navigate = useNavigate();
 
+  // Login
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -91,15 +102,21 @@ function Login({ onClose, onRegister }) {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/users/login", {
-        email: username,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://food-delivery-backend-32tm.onrender.com/users/login",
+        {
+          email: username,
+          password: password,
+        }
+      );
 
       console.log(response.data);
 
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
       localStorage.setItem("isLoggedIn", "true");
 
       alert(response.data.message);
@@ -108,7 +125,9 @@ function Login({ onClose, onRegister }) {
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "Login failed");
+      alert(
+        error.response?.data?.message || "Login failed"
+      );
     }
   };
 
@@ -123,29 +142,37 @@ function Login({ onClose, onRegister }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/users/forgot-password",
+        "https://food-delivery-backend-32tm.onrender.com/users/forgot-password",
         {
           email: forgotEmail,
-        },
+        }
       );
 
       alert(response.data.message);
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "Failed to send OTP");
+      alert(
+        error.response?.data?.message || "Failed to send OTP"
+      );
     }
   };
 
   return (
     <div className="login-overlay">
       <div className="login-modal">
-        <button className="close-button" onClick={() => navigate("/")}>
+
+        {/* Close Button */}
+        <button
+          className="close-button"
+          onClick={() => navigate("/")}
+        >
           ×
         </button>
 
         {!forgotPassword ? (
           <>
+            {/* Login */}
             <h2>Login</h2>
 
             <form onSubmit={handleLogin}>
@@ -171,11 +198,15 @@ function Login({ onClose, onRegister }) {
                 />
               </div>
 
-              <button type="submit" className="login-button">
+              <button
+                type="submit"
+                className="login-button"
+              >
                 Login
               </button>
             </form>
 
+            {/* Forgot Password */}
             <button
               type="button"
               className="forgot-password-button"
@@ -184,19 +215,25 @@ function Login({ onClose, onRegister }) {
               Forgot Password?
             </button>
 
+            {/* Register */}
             <p className="register-text">
               New user?
+
               <Link to="/register">
-                <button className="register-link">Register</button>
+                <button className="register-link">
+                  Register
+                </button>
               </Link>
             </p>
           </>
         ) : (
           <>
+            {/* Forgot Password */}
             <h2>Forgot Password</h2>
 
             {!otpVerified ? (
               <>
+                {/* Send OTP */}
                 <form onSubmit={handleForgotPassword}>
                   <div className="form-group">
                     <label>Email</label>
@@ -205,15 +242,21 @@ function Login({ onClose, onRegister }) {
                       type="email"
                       placeholder="Enter your registered email"
                       value={forgotEmail}
-                      onChange={(e) => setForgotEmail(e.target.value)}
+                      onChange={(e) =>
+                        setForgotEmail(e.target.value)
+                      }
                     />
                   </div>
 
-                  <button type="submit" className="login-button">
+                  <button
+                    type="submit"
+                    className="login-button"
+                  >
                     Send OTP
                   </button>
                 </form>
 
+                {/* Verify OTP */}
                 <form onSubmit={handleVerifyOTP}>
                   <div className="form-group">
                     <label>OTP</label>
@@ -227,42 +270,58 @@ function Login({ onClose, onRegister }) {
                     />
                   </div>
 
-                  <button type="submit" className="login-button">
+                  <button
+                    type="submit"
+                    className="login-button"
+                  >
                     Verify OTP
                   </button>
                 </form>
               </>
             ) : !passwordReset ? (
-              <form onSubmit={handleResetPassword}>
-                <div className="form-group">
-                  <label>New Password</label>
+              <>
+                {/* Reset Password */}
+                <form onSubmit={handleResetPassword}>
+                  <div className="form-group">
+                    <label>New Password</label>
 
-                  <input
-                    type="password"
-                    placeholder="Enter new password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                </div>
+                    <input
+                      type="password"
+                      placeholder="Enter new password"
+                      value={newPassword}
+                      onChange={(e) =>
+                        setNewPassword(e.target.value)
+                      }
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label>Confirm Password</label>
+                  <div className="form-group">
+                    <label>Confirm Password</label>
 
-                  <input
-                    type="password"
-                    placeholder="Confirm new password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </div>
+                    <input
+                      type="password"
+                      placeholder="Confirm new password"
+                      value={confirmPassword}
+                      onChange={(e) =>
+                        setConfirmPassword(e.target.value)
+                      }
+                    />
+                  </div>
 
-                <button type="submit" className="login-button">
-                  Reset Password
-                </button>
-              </form>
+                  <button
+                    type="submit"
+                    className="login-button"
+                  >
+                    Reset Password
+                  </button>
+                </form>
+              </>
             ) : (
               <>
-                <p className="otp-success">✓ Password Reset Successfully</p>
+                {/* Password Reset Success */}
+                <p className="otp-success">
+                  ✓ Password Reset Successfully
+                </p>
 
                 <button
                   type="button"
@@ -282,6 +341,7 @@ function Login({ onClose, onRegister }) {
               </>
             )}
 
+            {/* Back to Login */}
             <button
               type="button"
               className="back-login-button"

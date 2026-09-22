@@ -117,7 +117,7 @@ function AddFood() {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/food",
+        "https://food-delivery-backend-32tm.onrender.com/food",
         foodData
       );
 

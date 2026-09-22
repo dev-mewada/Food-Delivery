@@ -18,7 +18,7 @@ function Foodcart({ card }) {
     }
 
     try {
-      await axios.post("http://localhost:5000/cart", {
+      await axios.post("https://food-delivery-backend-32tm.onrender.com/cart", {
         user_id: user.id,
         food_id: card.id,
         quantity: 1,
