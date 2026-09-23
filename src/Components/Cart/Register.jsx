@@ -18,7 +18,47 @@ function Register({ onClose, onLogin }) {
   const navigate = useNavigate();
 
 
-  // Register user
+  //new
+  const sendOtp = async () => {
+
+    if (!email) {
+      alert("Please enter your email");
+      return;
+    }
+
+    try {
+
+      const response = await axios.post(
+
+      
+        `${import.meta.env.VITE_API_URL}/users/send-otp`,
+
+        {
+          email: email
+        }
+      );
+
+      alert(response.data.message);
+
+      // NEW CODE: OTP section show hoga
+      setOtpSent(true);
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        error.response?.data?.message ||
+        "Failed to send OTP"
+      );
+    }
+  };
+
+
+ 
+  //  OLD CODE: Register user
+  
+  /*
   const handleRegister = async (e) => {
 
     e.preventDefault();
@@ -37,20 +77,69 @@ function Register({ onClose, onLogin }) {
         address
       };
 
+      const response = await axios.post(
+        "https://food-delivery-backend-32tm.onrender.com/users",
+        userData
+      );
+
+      alert(response.data.message);
+
+      setOtpSent(true);
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        error.response?.data?.message ||
+        "Registration failed"
+      );
+    }
+  };
+  */
+
+
+  // =====================================================
+  
+  // OTP verify hone ke baad hi ye function chalega
+  // =====================================================
+
+  const handleRegister = async (e) => {
+
+    e.preventDefault();
+
+    if (!name || !email || !password) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    // 🟢 NEW CODE: OTP verification check
+    if (!otpVerified) {
+      alert("Please verify your email first");
+      return;
+    }
+
+    try {
+
+      const userData = {
+        name,
+        email,
+        password,
+        address
+      };
 
       const response = await axios.post(
 
-        // 🔴 CHANGED: localhost backend → Render backend
-        "https://food-delivery-backend-32tm.onrender.com/users",
+        // 🟢 NEW CODE: Actual registration API
+        `${import.meta.env.VITE_API_URL}/users`,
 
         userData
       );
 
-
       alert(response.data.message);
 
-      // OTP email sent
-      setOtpSent(true);
+      // 🟢 NEW CODE: Registration successful hone ke baad login
+      navigate("/login");
 
     } catch (error) {
 
@@ -64,7 +153,10 @@ function Register({ onClose, onLogin }) {
   };
 
 
+  // =====================================================
   // Verify OTP
+  // =====================================================
+
   const verifyOtp = async () => {
 
     if (!otp) {
@@ -72,13 +164,12 @@ function Register({ onClose, onLogin }) {
       return;
     }
 
-
     try {
 
       const response = await axios.post(
 
-        // 🔴 CHANGED: localhost backend → Render backend
-        "https://food-delivery-backend-32tm.onrender.com/users/verify-otp",
+        // 🔵 EXISTING CODE: Verify OTP API
+        `${import.meta.env.VITE_API_URL}/users/verify-otp`,
 
         {
           email: email,
@@ -86,12 +177,12 @@ function Register({ onClose, onLogin }) {
         }
       );
 
-
       alert(response.data.message);
 
+      // 🔵 EXISTING CODE
       setOtpVerified(true);
 
-      // OTP verification successful
+      // 🔵 EXISTING CODE
       setOtp("");
 
     } catch (error) {
@@ -127,7 +218,9 @@ function Register({ onClose, onLogin }) {
 
         <form onSubmit={handleRegister}>
 
-          {/* Name */}
+          {/* =====================================================
+              Name
+          ===================================================== */}
 
           <div className="form-group">
 
@@ -145,25 +238,49 @@ function Register({ onClose, onLogin }) {
           </div>
 
 
-          {/* Email */}
+          {/* =====================================================
+              Email
+          ===================================================== */}
 
           <div className="form-group">
 
             <label>Email</label>
 
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
-            />
+            {/* 🟢 CHANGED: Email ke saath Send OTP button */}
+            <div className="otp-row">
+
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+
+                  // 🟢 NEW CODE:
+                  // Email change hone par verification reset
+                  setOtpSent(false);
+                  setOtpVerified(false);
+                  setOtp("");
+                }}
+              />
+
+              {/* 🟢 NEW CODE: Send OTP button */}
+              <button
+                type="button"
+                className="otp-button"
+                onClick={sendOtp}
+              >
+                Send OTP
+              </button>
+
+            </div>
 
           </div>
 
 
-          {/* Phone */}
+          {/* =====================================================
+              Phone
+          ===================================================== */}
 
           <div className="form-group">
 
@@ -181,7 +298,9 @@ function Register({ onClose, onLogin }) {
           </div>
 
 
-          {/* Password */}
+          {/* =====================================================
+              Password
+          ===================================================== */}
 
           <div className="form-group">
 
@@ -199,7 +318,9 @@ function Register({ onClose, onLogin }) {
           </div>
 
 
-          {/* Address */}
+          {/* =====================================================
+              Address
+          ===================================================== */}
 
           <div className="form-group">
 
@@ -217,21 +338,9 @@ function Register({ onClose, onLogin }) {
           </div>
 
 
-          {/* Register Button */}
-
-          {!otpSent && (
-
-            <button
-              type="submit"
-              className="login-button"
-            >
-              Register
-            </button>
-
-          )}
-
-
-          {/* OTP Section */}
+          {/* =====================================================
+              🟢 NEW CODE: OTP Section
+          ===================================================== */}
 
           {otpSent && !otpVerified && (
 
@@ -251,7 +360,6 @@ function Register({ onClose, onLogin }) {
                   }
                 />
 
-
                 <button
                   type="button"
                   className="otp-button"
@@ -263,28 +371,76 @@ function Register({ onClose, onLogin }) {
               </div>
 
             </div>
+
           )}
 
 
-          {/* OTP Verified */}
+          {/* =====================================================
+              🟢 NEW CODE: Email Verified message
+          ===================================================== */}
 
           {otpVerified && (
 
-            <>
-              <p className="otp-success">
-                ✓ Email Verified
-              </p>
-
-              <button
-                type="button"
-                className="login-button"
-                onClick={() => navigate("/login")}
-              >
-                Go to Login
-              </button>
-            </>
+            <p className="otp-success">
+              ✓ Email Verified
+            </p>
 
           )}
+
+
+          {/* =====================================================
+              🔴 OLD CODE: Register button
+          ===================================================== */}
+
+          {/*
+          {!otpSent && (
+
+            <button
+              type="submit"
+              className="login-button"
+            >
+              Register
+            </button>
+
+          )}
+          */}
+
+
+          {/* =====================================================
+              🟢 NEW CODE: Register button
+              Sirf OTP verification ke baad dikhega
+          ===================================================== */}
+
+          {otpVerified && (
+
+            <button
+              type="submit"
+              className="login-button"
+            >
+              Register
+            </button>
+
+          )}
+
+
+          {/* =====================================================
+              🔴 OLD CODE: Go to Login
+          ===================================================== */}
+
+          {/*
+          {otpVerified && (
+
+            <button
+              type="button"
+              className="login-button"
+              onClick={() => navigate("/login")}
+            >
+              Go to Login
+            </button>
+
+          )}
+          */}
+
 
         </form>
 

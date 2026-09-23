@@ -126,10 +126,11 @@ function Navbar() {
                 }}
               >
                 {user?.name
-                  ?.split(" ")
-                  .slice(0, 2)
-                  .map((word) => word[0].toUpperCase())
-                  .join("")}
+  ?.trim()
+  .split(/\s+/)
+  .slice(0, 2)
+  .map((word) => word[0].toUpperCase())
+  .join("")}
               </div>
             ) : (
               <Link to="/login">
