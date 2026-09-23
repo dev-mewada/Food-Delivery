@@ -33,7 +33,7 @@ function Login({ onClose, onRegister }) {
 
     try {
       const response = await axios.post(
-        "https://food-delivery-backend-32tm.onrender.com/users/verify-reset-otp",
+        `${import.meta.env.VITE_API_URL}/users/verify-reset-otp`,
         {
           email: forgotEmail,
           otp: otp,
@@ -73,7 +73,7 @@ function Login({ onClose, onRegister }) {
 
     try {
       const response = await axios.post(
-        "https://food-delivery-backend-32tm.onrender.com/users/reset-password",
+        `${import.meta.env.VITE_API_URL}/users/reset-password`,
         {
           email: forgotEmail,
           password: newPassword,
@@ -103,7 +103,7 @@ function Login({ onClose, onRegister }) {
 
     try {
       const response = await axios.post(
-        "https://food-delivery-backend-32tm.onrender.com/users/login",
+        `${import.meta.env.VITE_API_URL}/users/login`,
         {
           email: username,
           password: password,
@@ -142,7 +142,7 @@ function Login({ onClose, onRegister }) {
 
     try {
       const response = await axios.post(
-        "https://food-delivery-backend-32tm.onrender.com/users/forgot-password",
+        `${import.meta.env.VITE_API_URL}/users/forgot-password`,
         {
           email: forgotEmail,
         }
